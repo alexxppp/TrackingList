@@ -1,0 +1,24 @@
+{
+  "name": "din-proyecto01-lista-seguimiento-alepac2",
+  "version": "1.0.0",
+  "description": "Lista de seguimiento de libros, juegos y peliculas.",
+  "main": "./src/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DAM-DIN-24/din-proyecto01-lista-seguimiento-alepac2.git"
+  },
+  "author": "Alex Pace",
+  "license": "ISC",
+  "homepage": "https://github.com/DAM-DIN-24/din-proyecto01-lista-seguimiento-alepac2#readme",
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-reloader": "^1.2.3"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3"
+  }
+}

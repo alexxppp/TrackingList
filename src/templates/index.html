@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self'; 
+    style-src 'self' https://stackpath.bootstrapcdn.com; 
+    script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com; 
+    font-src 'self' https://stackpath.bootstrapcdn.com; 
+    ">
+    <title>Proyecto de Alex Pace</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- My scripts -->
+    <script defer type="module" src="../renderer.js"></script>
+</head>
+
+<body class="p-5">
+
+    <div id="title" class="container p-2">
+        <h1 class="text-center">Elements Tracking List</h1>
+    </div>
+
+    <div class="container d-flex" id="main-container">
+
+        <div id="filters" class="col-3 p-3 border-end bg-light d-flex flex-column">
+            <h5 class="mb-3 font-weight-bold">Filter by:</h5>
+            <div class="dropdown">
+                <button 
+                    class="btn btn-primary dropdown-toggle w-100" 
+                    type="button" 
+                    id="filterDropdown" 
+                    data-toggle="dropdown" 
+                    aria-haspopup="true" 
+                    aria-expanded="false">
+                    Select Filters
+                </button>
+                <div class="dropdown-menu p-3 custom-dropdown" aria-labelledby="filterDropdown">
+                    <div class="row">
+                        
+                        <div class="col-4">
+                            <label for="filter-type" class="form-label font-weight-bold">Type</label>
+                            <select class="form-control" id="filter-type">
+                                <option value="" disabled selected>Choose</option>
+                                <option value="book">Book</option>
+                                <option value="game">Game</option>
+                                <option value="movie">Movie</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-4">
+                            <label for="filter-status" class="form-label font-weight-bold">Status</label>
+                            <select class="form-control" id="filter-status">
+                                <option value="" disabled selected>Choose</option>
+                                <option value="pending">Pending</option>
+                                <option value="in_progress">Processing</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-4">
+                            <label for="filter-rating" class="form-label font-weight-bold">Rating</label>
+                            <select class="form-control" id="filter-rating">
+                                <option value="" disabled selected>Choose</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-success w-100 mt-3" id="confirm-filters-btn">Apply Filters</button>
+                </div>
+            </div>
+
+            <hr>
+
+            <h5 class="fw-bold mb-3">Sort by:</h5>
+            <div class="mb-4">
+                <select class="form-select mb-2 w-100 bg-primary text-white text-center p-2 rounded" aria-label="Sort options" id="sort-select">
+                    <option value="" disabled selected>Choose option</option>
+                    <option value="name">Name</option>
+                    <option value="status">Status</option>
+                    <option value="rating">Rating</option>
+                </select>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="sort-descending" value="descending">
+                    <label class="form-check-label" for="descending">Descending?</label>
+                </div>
+            </div>
+
+            <h5 class="fw-bold mt-3">Range rating:</h5>
+            <input type="number" id="rating-min" min="0" max="5" placeholder="Minimum rating...">
+            <input type="number" id="rating-max" min="0" max="5" placeholder="Maximum rating...">
+
+            <button id="reset-filters-btn" class="btn btn-danger mt-auto">Reset all filters</button>
+        </div>
+        
+
+        <div id="main-section" class="col-9 d-flex flex-column p-3 border">
+
+            <div id="search-bar" class="d-flex align-items-center mb-3">
+                <input id="search-input" type="text" class="form-control mr-2" placeholder="Search by name or note...">
+                <button id="clear-bar-button" class="btn btn-secondary">Clear</button>
+            </div>
+
+            <div id="element-list" class="flex-fill p-2 bg-white border br-5">
+                <!-- elements list goes here -->
+                <button id="show-form-btn" class="btn btn-primary mb-3">New</button>
+                <div id="elements-container" class="d-flex flex-column align-items-center p-2 bg-white">
+                    <!-- Elements go here -->
+                </div>
+            </div>
+
+            <div id="legend" class="d-flex justify-content-between mt-3 p-2 border br-5">
+                <div class="legend-item d-flex align-items-center">
+                    <div class="circle mr-2 red"></div>
+                    <span>Pending</span>
+                </div>
+                <div class="legend-item d-flex align-items-center">
+                    <div class="circle mr-2 orange"></div>
+                    <span>Processing</span>
+                </div>
+                <div class="legend-item d-flex align-items-center">
+                    <div class="circle mr-2 green"></div>
+                    <span>Completed</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Form container, hidden by default -->
+    <div id="element-form-container" class="pop-up">
+
+        <button id="hide-form-btn" class="btn btn-secondary">Back</button>
+        <h4 id="form-title" class="mt-1 mb-4">New Element</h4>
+        
+        <form id="element-form">
+
+            <span>Element name (*)</span>
+            <span class="error" id="error-element-name"></span>
+            <div class="mb-4"><input class="form-control" required id="element-name" type="text" placeholder="Name..." maxlength="50" pattern="^[a-zA-Z0-9 ]+$"></div>
+
+            <div class="mb-4">
+                <select class="form-select" id="element-type">
+                    <option value="book" selected>Book</option>
+                    <option value="game">Game</option>
+                    <option value="movie">Movie</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <select class="form-select" id="element-status">
+                    <option value="pending" selected>Pending</option>
+                    <option value="in_progress">Processing</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+
+
+            <span>Element rating</span>
+            <span class="error" id="error-element-rating"></span>
+            <div class="mb-4"><input class="form-control" id="element-rating" type="number" placeholder="Rating (1-5)" min="1" max="5"></div>
+
+            <span>Element notes</span>
+            <span class="error" id="error-element-notes"></span>
+            <div class="mb-4"><input class="form-control" type="text" id="element-notes" placeholder="Notes... (max 100 characters)" maxlength="100"></div>
+
+            <button type="submit" disabled="true" class="btn btn-primary w-100" id="submit-button">Create element</button>
+
+            <input type="hidden" id="element-hidden-id">
+
+        </form>
+
+    </div>
+
+
+    <!-- Status form container, hidden by default -->
+    <div id="element-status-form-container" class="pop-up">
+
+        <button id="hide-status-form-btn" class="btn btn-secondary">Back</button>
+        <h4 id="form-title" class="mt-1 mb-4">Change status</h4>
+        
+        <form id="element-status-form">
+
+            <input type="hidden" id="element-status-id">
+
+            <div class="mb-4">
+                <select class="form-select" required id="element-status-only">
+                    <option value="" disabled selected>Select Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="in_progress">Processing</option>
+                    <option value="completed">Completed</option>
+                </select>(*)
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100" id="change-status-button">Set new status</button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Validation message, hidden by default -->
+    <div id="validation-message-container" class="pop-up">
+        <strong>Are you sure?</strong>
+        <p id="personalized-message"></p>
+        <div class="mt-3">
+            <button id="confirm-action-btn" class="btn btn-danger btn-sm">Yes, I'm sure</button>
+            <button id="cancel-action-btn" class="btn btn-secondary btn-sm">Cancel</button>
+        </div>
+    </div>
+    
+    <!-- Overlay for forms -->
+    <div id="overlay-custom" class="overlay-custom"></div>
+    <div id="overlay-custom-2" class="overlay-custom-2"></div>
+
+
+</body>
+
+</html>
