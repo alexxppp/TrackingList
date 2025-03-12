@@ -1,80 +1,80 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/jeAbMzt9)
+# Watchlist
 
+A watchlist for items of various types.  
+Created by Alex Pace.
 
-# Lista de Seguimiento
+## 📌 Index
 
-Lista de seguimiento para elementos de varios tipos.  
-Hecha por Alex Pace.
+- [Description](#description)
+- [Initial Idea](#initial-idea)
+- [Installation](#installation)
+- [Usage](#usage)
 
-## Índice
+## 📝 Description
 
-- [Descripción](#descripción)
-- [Idea Inicial](#idea-inicial)
-- [Instalación](#instalación)
-- [Uso](#uso)
+This project is a desktop application built with [Electron](https://www.electronjs.org/).  
+Its goal is to serve as a **watchlist** for various types of items, such as **"movie"**, **"book"**, or **"game"**.  
+Each item can have a status, with options like **"pending"**, **"processing"**, or **"completed"**.  
+It allows users to **add, edit, delete, filter, and sort** the list of items.  
+Additionally, it features a **detailed error-checking system** across the application.
 
+## 💡 Initial Idea
 
-## Descripción
+The initial design idea created with draw.io is as follows:
 
-Este proyecto es una aplicación de escritorio construida con [Electron](https://www.electronjs.org/). Tiene como objetivo servir como lista de seguimiento de elementos de varios tipos, como "movie", "book" o "game". Se puede determinar el estado de cada elemento,
-teniendo opciones como "pending", "processing" o "completed". Permite eliminar, añadir, modificar, filtrar y ordenar la lista.
-Tiene un error checking detallado en cada apartado de la aplicacion.
+![initial idea](./others/drawio.png)
 
-## Idea Inicial
+## ⚙️ Installation
 
-La idea de diseño inicial hecha con draw.io es la siguiente:
+Steps to install and run the project on your computer:
 
-![idea inicial](./others/drawio.png)
+### 🔗 Prerequisites
 
-
-## Instalación
-
-Pasos para instalar y ejecutar el proyecto en tu ordenador:
-
-
-### Requisitos previos
-
-Tienes Node.js y NPM instalados?
+Make sure you have **Node.js** and **NPM** installed:
 
 - [Node.js](https://nodejs.org/)
 - [npm](https://www.npmjs.com/)
 
+### 🚀 Steps
 
-### Pasos
-
-1. Clona el repositorio:
-
-    ```bash
-    git clone https://github.com/usuario/nombre-del-repositorio.git
-    ```
-
-2. Navega al directorio del proyecto:
+1. Clone the repository:
 
     ```bash
-    cd nombre-del-repositorio
+    git clone https://github.com/user/repository-name.git
     ```
 
-3. Instala las dependencias:
+2. Navigate to the project directory:
+
+    ```bash
+    cd repository-name
+    ```
+
+3. Install dependencies:
 
     ```bash
     npm install
     ```
 
-4. Inicia la aplicación:
+4. Start the application:
 
     ```bash
     npm start
     ```
 
+## 🎯 Usage
 
-## Uso
-
-Para añadir un elemento presione "New", para más opciones sobre el elemento presione los tres puntos en la parte derecha de dicha tarea,
-y se mostrará un menu desplegable con opciones para editar el estado, editar el elemento o eliminarlo. Haga hover para un momento encima del nombre del elemento para ver sus notas. Para filtrar presione los checkboxes con el valor que quieres que se muestre, y para ordenar elija del desplegable, y si quiere invertir la lista presione "Descending?". Para filtrar por rango, introduzca ambos valores y la lista se filtrará automaticamente. Para buscar, introduzca el texto deseado en la barra de busqueda, y se buscará automáticamente por nombre del elemento (startsWith), o por contenido de sus notas (includes).
-
-
-## Problemas encontrados
-
-Los problemas encontrados fueron el apartado relacionado con la persistencia, es decir escribir en JSON y leer del archivo, y hacer que los filtros
-se aniden. La persistencia se ha solucionado modificando el constructor de la clase list.js, ya que no creaba elementos, si no objetos cualquiera.
-En cuanto a los filtros, me he decantado para una interfaz más amigable que permita filtrar de manera consecutiva los elementos deseados.
+- To **add an item**, press `"New"`.
+- For more options on an item, click the **three dots** on the right side of the task.  
+  A dropdown menu will appear with options to:
+  - **Edit the status**
+  - **Edit the item**
+  - **Delete it**
+- To view an item's notes, **hover over its name**.
+- To **filter**, check the boxes with the values you want to display.
+- To **sort**, select an option from the dropdown.  
+  If you want to reverse the list, enable **"Descending?"**.
+- To **filter by range**, enter both values, and the list will automatically update.
+- To **search**, type the desired text into the search bar.  
+  The search will automatically filter by:
+  - **Item name** (`startsWith`)
+  - **Notes content** (`includes`)
